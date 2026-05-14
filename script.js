@@ -1,123 +1,118 @@
 // ===== DOM Content Loaded =====
 document.addEventListener('DOMContentLoaded', () => {
-  populateHero();
+  populateProfile();
   populateAbout();
   populateSkills();
   populateProjects();
   populateExperience();
-  populateContact();
-  initScrollAnimations();
-  initSmoothScroll();
+  populateEducation();
 });
 
-// ===== Populate Hero =====
-function populateHero() {
-  document.querySelector('.hero-name').textContent = portfolioData.hero.name;
-  document.querySelector('.hero-title').textContent = portfolioData.hero.title;
-  document.querySelector('.hero-tagline').textContent = portfolioData.hero.tagline;
+// ===== Profile Section =====
+function populateProfile() {
+  // Profile photo - use placeholder if no image
+  const photoUrl = 'https://placehold.co/200x200?text=Photo';
+  document.querySelector('.profile-photo').src = photoUrl;
 
-  const cta = document.querySelector('.hero-cta');
-  cta.textContent = portfolioData.hero.cta;
-  cta.href = portfolioData.hero.ctaLink;
+  document.querySelector('.profile-name').textContent = portfolioData.hero.name;
+  document.querySelector('.profile-title').textContent = portfolioData.hero.title;
+  document.querySelector('.profile-location').textContent = portfolioData.about.location;
 
-  // Update nav logo with initials
-  const initials = portfolioData.hero.name.split(' ').map(n => n[0]).join('').toUpperCase();
-  document.querySelector('.nav-logo').textContent = initials;
+  // Social links
+  const linkedinLink = document.querySelector('.social-icon.linkedin');
+  const githubLink = document.querySelector('.social-icon.github');
+  const kaggleLink = document.querySelector('.social-icon.kaggle');
+  const mediumLink = document.querySelector('.social-icon.medium');
+  const emailBtn = document.querySelector('.email-btn');
+
+  linkedinLink.href = portfolioData.social.linkedin || '#';
+  githubLink.href = portfolioData.social.github || '#';
+  kaggleLink.href = portfolioData.social.kaggle || '#';
+  mediumLink.href = portfolioData.social.medium || '#';
+
+  // Show/hide social icons based on data
+  if (!portfolioData.social.linkedin) linkedinLink.style.display = 'none';
+  if (!portfolioData.social.github) githubLink.style.display = 'none';
+  if (!portfolioData.social.kaggle) kaggleLink.style.display = 'none';
+  if (!portfolioData.social.medium) mediumLink.style.display = 'none';
+
+  // Email button
+  if (portfolioData.about.email) {
+    emailBtn.href = `mailto:${portfolioData.about.email}`;
+  } else {
+    emailBtn.style.display = 'none';
+  }
 }
 
-// ===== Populate About =====
+// ===== About Section =====
 function populateAbout() {
   document.querySelector('.about-bio').textContent = portfolioData.about.bio;
-
-  const items = document.querySelectorAll('.about-item .about-label');
-  items[0].textContent = portfolioData.about.location;
-  items[1].textContent = portfolioData.about.email;
-
-  // Update footer name
-  document.querySelector('.footer-name').textContent = portfolioData.hero.name;
 }
 
-// ===== Populate Skills =====
+// ===== Skills Section =====
 function populateSkills() {
-  const grid = document.querySelector('.skills-grid');
-  grid.innerHTML = portfolioData.skills.map(skill => `
-    <div class="skill-badge animate-on-scroll">
-      <span class="skill-icon">${skill.icon}</span>
-      <span>${skill.name}</span>
-    </div>
-  `).join('');
+  const skillsList = document.querySelector('.skills-list');
+  skillsList.innerHTML = portfolioData.skills.map(skill =>
+    `<span class="skill-pill">${skill.name}</span>`
+  ).join('');
 }
 
-// ===== Populate Projects =====
+// ===== Projects Section =====
 function populateProjects() {
-  const grid = document.querySelector('.projects-grid');
-  grid.innerHTML = portfolioData.projects.map(project => `
-    <div class="project-card animate-on-scroll">
-      <h3 class="project-title">${project.title}</h3>
-      <p class="project-description">${project.description}</p>
-      <div class="project-tags">
-        ${project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('')}
+  const projectsGrid = document.querySelector('.projects-grid');
+  projectsGrid.innerHTML = portfolioData.projects.map(project => {
+    // Generate placeholder image URL
+    const encodedName = project.title.replace(/ /g, '+');
+    const placeholderUrl = `https://placehold.co/600x300/e8f0fe/1a56db?text=${encodedName}`;
+
+    return `
+      <div class="project-card">
+        <img src="${placeholderUrl}" alt="${project.title}" class="project-cover">
+        <!-- TODO: Replace this src with your real image path e.g. ./images/project1.jpg -->
+        <div class="project-body">
+          <h3 class="project-title">${project.title}</h3>
+          <div class="project-tags">
+            ${project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('')}
+          </div>
+          <p class="project-description">${project.description}</p>
+          <a href="${project.link}" class="project-link" target="_blank">Read more →</a>
+        </div>
       </div>
-      <a href="${project.link}" class="project-link" target="_blank">
-        View Project →
-      </a>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
-// ===== Populate Experience =====
+// ===== Experience Section =====
 function populateExperience() {
-  const timeline = document.querySelector('.timeline');
-  timeline.innerHTML = portfolioData.experience.map(exp => `
-    <div class="timeline-item animate-on-scroll">
-      <h3 class="timeline-role">${exp.role}</h3>
-      <p class="timeline-company">${exp.company}</p>
-      <p class="timeline-period">${exp.period}</p>
-      <p class="timeline-description">${exp.description}</p>
+  const experienceList = document.querySelector('.experience-list');
+  experienceList.innerHTML = portfolioData.experience.map(exp => `
+    <div class="experience-item">
+      <p class="exp-date">${exp.period}</p>
+      <h3 class="exp-role">${exp.role}</h3>
+      <p class="exp-company">${exp.company}</p>
+      <p class="exp-description">${exp.description}</p>
     </div>
   `).join('');
 }
 
-// ===== Populate Contact =====
-function populateContact() {
-  const githubLink = document.querySelector('.social-link.github');
-  const linkedinLink = document.querySelector('.social-link.linkedin');
+// ===== Education Section =====
+function populateEducation() {
+  const educationList = document.querySelector('.education-list');
+  // Use education data from portfolio if available, otherwise show placeholder
+  const educationData = portfolioData.education || [];
 
-  githubLink.href = portfolioData.social.github || '#';
-  linkedinLink.href = portfolioData.social.linkedin || '#';
+  if (educationData.length === 0) {
+    // Hide education section if no data
+    document.querySelector('.education-section').style.display = 'none';
+    return;
+  }
 
-  // Hide if not provided
-  if (!portfolioData.social.github) githubLink.style.display = 'none';
-  if (!portfolioData.social.linkedin) linkedinLink.style.display = 'none';
-}
-
-// ===== Scroll Animations =====
-function initScrollAnimations() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  document.querySelectorAll('.animate-on-scroll').forEach(el => {
-    observer.observe(el);
-  });
-}
-
-// ===== Smooth Scroll =====
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
+  educationList.innerHTML = educationData.map(edu => `
+    <div class="education-item">
+      <p class="edu-date">${edu.period}</p>
+      <h3 class="edu-degree">${edu.degree}</h3>
+      <p class="edu-institution">${edu.institution}</p>
+      ${edu.notes ? `<p class="edu-notes">${edu.notes}</p>` : ''}
+    </div>
+  `).join('');
 }
