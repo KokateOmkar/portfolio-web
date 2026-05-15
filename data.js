@@ -4,7 +4,7 @@
 const portfolioData = {
   // Hero Section
   hero: {
-    name: "John Doe",
+    name: "Omkar Kokate",
     title: "Data Scientist & AI Enthusiast",
     tagline: "Turning raw data into actionable insights and building intelligent systems",
     cta: "View My Work",
@@ -14,8 +14,8 @@ const portfolioData = {
   // About Section
   about: {
     bio: "I'm a Data Scientist passionate about machine learning, deep learning, and generative AI. With experience in building end-to-end ML pipelines and developing RAG-based applications, I help organizations unlock the power of their data. I thrive on solving complex problems and turning them into elegant, scalable solutions.",
-    location: "Your City, Country",
-    email: "your.email@example.com"
+    location: "Pune, India",
+    email: "kokateomkar27@gmail.com"
   },
 
   // Skills Section
@@ -65,23 +65,17 @@ const portfolioData = {
   // Experience Section
   experience: [
     {
-      role: "Data Scientist",
-      company: "Company Name",
-      period: "2022 - Present",
-      description: "Building ML models for predictive analytics and developing Gen AI solutions."
+      role: "Data Science Intern",
+      company: "kelp Global",
+      period: "Dec 2025 - Present",
+      description: "Working on LLMs , RAG Systems , Data Cleaning and lots of POC development to solve real-world problems."
     },
-    {
-      role: "Junior Data Analyst",
-      company: "Previous Company",
-      period: "2020 - 2022",
-      description: "Analyzed datasets and created reports to support business decisions."
-    }
   ],
 
   // Social Links
   social: {
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
+    github: "https://github.com/KokateOmkar",
+    linkedin: "https://www.linkedin.com/in/omkar-kokate-s1232",
     twitter: ""
   }
 };
