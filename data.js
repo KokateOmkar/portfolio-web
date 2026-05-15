@@ -20,44 +20,38 @@ const portfolioData = {
 
   // Skills Section
   skills: [
-    { name: "Python", icon: "🐍" },
-    { name: "SQL", icon: "💾" },
-    { name: "NumPy", icon: "📊" },
-    { name: "Pandas", icon: "🐼" },
-    { name: "PyTorch", icon: "🔥" },
-    { name: "Machine Learning", icon: "🤖" },
-    { name: "Deep Learning", icon: "🧠" },
-    { name: "Generative AI", icon: "✨" },
-    { name: "LLMs", icon: "📝" },
-    { name: "RAG", icon: "🔍" },
-    { name: "Data Visualization", icon: "📈" },
-    { name: "Git", icon: "📦" }
+    { name: "Python" },
+    { name: "SQL" },
+    { name: "NumPy" },
+    { name: "Pandas" },
+    { name: "PyTorch" },
+    { name: "Machine Learning" },
+    { name: "Deep Learning" },
+    { name: "Generative AI" },
+    { name: "LLMs" },
+    { name: "RAG" },
+    { name: "Data Visualization" },
+    { name: "Git" }
   ],
 
   // Projects Section
   projects: [
     {
-      title: "Customer Churn Prediction",
-      description: "Built a machine learning model to predict customer churn with 92% accuracy using XGBoost and deployed it as a REST API.",
-      tags: ["Python", "XGBoost", "Scikit-learn", "Flask"],
+      title: "SeatAlgo - MHT CET College Counselor",
+      description: "Developed a web app to predict MHT-CET seat allotment using 3 years of data and Pandas filtering. Processed 100,000+ records across institutes and courses; implemented web scraping from official CET PDFs.",
+      tags: ["Python", "Pandas", "NumPy", "Streamlit", "Web Scraping"],
       link: "#"
     },
     {
-      title: "RAG-based Document Assistant",
-      description: "Developed a retrieval-augmented generation system that allows users to chat with their documents using LLM embeddings.",
-      tags: ["LangChain", "OpenAI", "Pinecone", "FastAPI"],
+      title: "Doc & Brain - Hybrid RAG Agent",
+      description: "Engineered a Hybrid RAG system routing queries between a Vector DB (Qdrant) for semantic search and SQL for precise analytics. Built an automated ingestion pipeline using LangChain and Pydantic.",
+      tags: ["Python", "LangChain", "Gemini API", "Qdrant", "SQLite", "Streamlit"],
       link: "#"
     },
     {
-      title: "Image Classification with CNN",
-      description: "Trained a convolutional neural network on custom image datasets for multi-class classification tasks using PyTorch.",
-      tags: ["PyTorch", "Computer Vision", "Deep Learning"],
-      link: "#"
-    },
-    {
-      title: "Sales Forecasting Dashboard",
-      description: "Created an interactive dashboard to forecast sales trends using time series analysis and visualize insights with Plotly.",
-      tags: ["Pandas", "Prophet", "Plotly", "SQL"],
+      title: "FinPlan - Smart Investment Portfolio with ML",
+      description: "Led the ML module for smart investment recommendations; built a semi-synthetic dataset of 10,000 realistic records. Built a multi-output regression model with MSE of 1.5%.",
+      tags: ["Python", "Scikit-learn", "PyTorch", "NumPy", "Pandas"],
       link: "#"
     }
   ],
@@ -66,9 +60,19 @@ const portfolioData = {
   experience: [
     {
       role: "Data Science Intern",
-      company: "kelp Global",
+      company: "Kelp Global",
       period: "Dec 2025 - Present",
-      description: "Working on LLMs , RAG Systems , Data Cleaning and lots of POC development to solve real-world problems."
+      description: "Working on LLMs, RAG systems, data cleaning, and proof-of-concept development to solve real-world problems."
+    },
+  ],
+
+  // Education Section
+  education: [
+    {
+      degree: "B.E. in Artificial Intelligence and Data Science",
+      institution: "Dr. D. Y. Patil Institute of Technology, Pune",
+      period: "Nov 2022 - June 2026",
+      pointer: "CGPA: 9.61 | Relevant coursework: Data Structures, Machine Learning, DBMS, Deep Learning, Natural Language Processing"
     },
   ],
 
@@ -76,6 +80,7 @@ const portfolioData = {
   social: {
     github: "https://github.com/KokateOmkar",
     linkedin: "https://www.linkedin.com/in/omkar-kokate-s1232",
+    
     twitter: ""
   }
 };

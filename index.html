@@ -3,79 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Scientist Portfolio</title>
-  <!--
-  IMAGE SETUP:
-  1. Create a folder called /images/ in your project root
-  2. Add profile photo as: images/profile.jpg
-  3. Add project screenshots as: images/project1.jpg, images/project2.jpg ...
-  4. Update the src attributes below from placeholder URLs to ./images/filename.jpg
--->
+  <title>Omkar Kokate — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page-container">
-    <!-- Left Sidebar -->
-    <aside class="sidebar">
-      <img src="" alt="Profile Photo" class="profile-photo">
-      <!-- TODO: Replace this src with your real image path e.g. ./images/profile.jpg -->
-
-      <h1 class="profile-name"></h1>
-      <p class="profile-title"></p>
-      <p class="profile-location"></p>
-
-      <div class="social-row">
-        <a href="" class="social-icon linkedin" target="_blank" title="LinkedIn">
-          <i class="fa-brands fa-linkedin"></i>
-        </a>
-        <a href="" class="social-icon github" target="_blank" title="GitHub">
-          <i class="fa-brands fa-github"></i>
-        </a>
-        <a href="" class="social-icon kaggle" target="_blank" title="Kaggle">
-          <span class="kaggle-text">K</span>
-        </a>
-        <a href="" class="social-icon medium" target="_blank" title="Medium">
-          <i class="fa-brands fa-medium"></i>
-        </a>
-        <a href="" class="email-btn">email me</a>
+  <!-- Page Background -->
+  <div class="page-background">
+    <!-- Mac Browser Window -->
+    <div class="mac-window">
+      <!-- Browser Chrome Bar -->
+      <div class="browser-chrome">
+        <div class="chrome-left">
+          <button class="chrome-btn back-btn" id="backBtn" title="Previous project">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="chrome-btn forward-btn" id="forwardBtn" title="Next project">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <button class="traffic-btn red" id="redBtn" title="Close">
+            <span class="traffic-icon">×</span>
+          </button>
+          <button class="traffic-btn yellow" id="yellowBtn" title="Minimize">
+            <span class="traffic-icon">−</span>
+          </button>
+          <button class="traffic-btn green" id="greenBtn" title="Fullscreen">
+            <span class="traffic-icon">⤢</span>
+          </button>
+          <button class="chrome-btn theme-btn" id="themeToggle" title="Toggle theme">
+            <span class="theme-icon">☀</span>
+          </button>
+        </div>
+        <div class="chrome-center">
+          <div class="address-bar">
+            <span class="address-bar-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
+            <input type="text" id="addressBar" placeholder="omkar.dev / search projects by tech stack..." autocomplete="off">
+            <button class="clear-btn" id="clearBtn" title="Clear search">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="chrome-right">
+          <button class="medium-btn" id="mediumBtn" title="Blog Articles">
+            <span class="medium-text">M</span>
+          </button>
+        </div>
       </div>
 
-      <div class="sidebar-section about-section">
-        <h3 class="section-label">About</h3>
-        <p class="about-bio"></p>
+      <!-- Tab Bar -->
+        <div class="tab-bar">
+          <div class="tab active">
+            <span class="tab-icon"><i class="fa-solid fa-briefcase"></i></span>
+            <span class="tab-title">Omkar Kokate — Portfolio</span>
+          </div>
+        </div>
+
+      <!-- Main Window Content -->
+      <div class="window-content">
+        <!-- Left Sidebar -->
+        <aside class="sidebar" id="sidebar">
+          <div class="sidebar-content">
+            <div class="profile-header">
+              <img src="" alt="Profile Photo" class="profile-photo" id="profilePhoto">
+              <h1 class="profile-name" id="profileName"></h1>
+              <p class="profile-title" id="profileTitle"></p>
+              <p class="profile-location" id="profileLocation"></p>
+            </div>
+
+            <div class="social-row">
+              <a href="" class="social-icon linkedin" id="linkedinIcon" target="_blank" title="LinkedIn">
+                <i class="fa-brands fa-linkedin"></i>
+              </a>
+              <a href="" class="social-icon github" id="githubIcon" target="_blank" title="GitHub">
+                <i class="fa-brands fa-github"></i>
+              </a>
+              <a href="" class="social-icon medium" id="mediumIcon" target="_blank" title="Medium">
+                <span class="medium-dots">••</span>
+              </a>
+              <a href="" class="email-btn" id="emailBtn">email me</a>
+            </div>
+
+            <div class="sidebar-section about-section">
+              <h3 class="section-label">About</h3>
+              <p class="about-bio" id="aboutBio"></p>
+            </div>
+
+            <div class="sidebar-section skills-section">
+              <h3 class="section-label">Skills</h3>
+              <div class="skills-list" id="skillsList"></div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+          <section class="content-section projects-section">
+            <h2 class="section-label">Projects</h2>
+            <div class="projects-grid" id="projectsGrid"></div>
+          </section>
+
+          <hr class="section-divider">
+
+          <section class="content-section experience-section">
+            <h2 class="section-label">Experience</h2>
+            <div class="experience-list" id="experienceList"></div>
+          </section>
+
+          <hr class="section-divider">
+
+          <section class="content-section education-section">
+            <h2 class="section-label">Education</h2>
+            <div class="education-list" id="educationList"></div>
+          </section>
+        </main>
       </div>
+    </div>
+  </div>
 
-      <div class="sidebar-section skills-section">
-        <h3 class="section-label">Skills</h3>
-        <div class="skills-list"></div>
+  <!-- Terminal Blog Panel -->
+  <div class="terminal-panel" id="terminalPanel">
+    <div class="terminal-overlay" id="terminalOverlay"></div>
+    <div class="terminal-content">
+      <div class="terminal-header">
+        <span class="terminal-prompt">~/omkar/blog</span>
+        <button class="terminal-close" id="terminalClose">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
-    </aside>
+      <div class="terminal-body" id="terminalBody">
+        <!-- Terminal content will be populated with typewriter effect -->
+      </div>
+    </div>
+  </div>
 
-    <!-- Right Content -->
-    <main class="main-content">
-      <section class="content-section projects-section">
-        <h2 class="section-label">Projects</h2>
-        <div class="projects-grid"></div>
-      </section>
-
-      <hr class="section-divider">
-
-      <section class="content-section experience-section">
-        <h2 class="section-label">Experience</h2>
-        <div class="experience-list"></div>
-      </section>
-
-      <hr class="section-divider">
-
-      <section class="content-section education-section">
-        <h2 class="section-label">Education</h2>
-        <div class="education-list"></div>
-      </section>
-    </main>
+  <!-- Closing Overlay -->
+  <div class="closing-overlay" id="closingOverlay">
+    <div class="closing-content">
+      <h1 class="closing-message">Thanks for visiting. Closing...</h1>
+      <p class="closing-subtext">Feel free to reach out if you'd like to connect.</p>
+    </div>
   </div>
 
   <script src="data.js"></script>
