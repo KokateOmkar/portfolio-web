@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   populateProjects();
   populateExperience();
   populateEducation();
+  populateCertifications();
+  populateAchievements();
 
   // Initialize all interactive features
   initializeBrowserChrome();
@@ -168,32 +170,6 @@ function initializeBrowserChrome() {
     });
   }
 
-  // Medium button in chrome bar
-  const mediumBtn = document.getElementById('mediumBtn');
-  const terminalPanel = document.getElementById('terminalPanel');
-
-  if (mediumBtn && terminalPanel) {
-    mediumBtn.addEventListener('click', () => {
-      terminalPanel.classList.add('active');
-      typeTerminalContent();
-    });
-  }
-
-  // Terminal panel close handlers
-  const terminalOverlay = document.getElementById('terminalOverlay');
-  const terminalClose = document.getElementById('terminalClose');
-
-  if (terminalOverlay && terminalPanel) {
-    terminalOverlay.addEventListener('click', () => {
-      terminalPanel.classList.remove('active');
-    });
-  }
-
-  if (terminalClose && terminalPanel) {
-    terminalClose.addEventListener('click', () => {
-      terminalPanel.classList.remove('active');
-    });
-  }
 }
 
 // ===== Project Navigation =====
@@ -259,81 +235,36 @@ function updateProjectStates(activeIndex) {
   });
 }
 
-// ===== Terminal Panel =====
-let terminalTyped = false;
-
-function typeTerminalContent() {
-  if (terminalTyped) return;
-  terminalTyped = true;
-
-  const terminalBody = document.getElementById('terminalBody');
-  if (!terminalBody) return;
-
-  // Clear any existing content
-  terminalBody.innerHTML = '';
-
-  const lines = [
-    { text: '$ fetching articles from medium...', type: 'command', delay: 100 },
-    { text: 'Connecting to medium.com/@omkarkokate', type: 'connecting', delay: 800 },
-    { text: '████████████ 100%', type: 'progress', delay: 400 },
-    { text: '', type: 'blank', delay: 200 },
-    { text: '[1] Getting Started with RAG Systems', type: 'article-title', link: 'https://medium.com/@omkarkokate', delay: 600 },
-    { text: '→ medium.com/@omkar · 5 min read', type: 'article-meta', delay: 100 },
-    { text: '', type: 'blank', delay: 100 },
-    { text: '[2] MHT-CET Data Analysis with Pandas', type: 'article-title', link: 'https://medium.com/@omkarkokate', delay: 300 },
-    { text: '→ medium.com/@omkar · 8 min read', type: 'article-meta', delay: 100 },
-    { text: '', type: 'blank', delay: 100 },
-    { text: '[3] Building Hybrid Search Pipelines', type: 'article-title', link: 'https://medium.com/@omkarkokate', delay: 300 },
-    { text: '→ medium.com/@omkar · 6 min read', type: 'article-meta', delay: 100 },
-    { text: '', type: 'blank', delay: 200 },
-    { text: '$ _', type: 'cursor', delay: 300 }
-  ];
-
-  let currentLine = 0;
-
-  function typeLine() {
-    if (currentLine >= lines.length) return;
-
-    const lineData = lines[currentLine];
-    const lineEl = document.createElement('div');
-    lineEl.className = `terminal-line ${lineData.type}`;
-
-    if (lineData.type === 'article-title') {
-      lineEl.textContent = lineData.text;
-      lineEl.style.cursor = 'pointer';
-      lineEl.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (lineData.link) window.open(lineData.link, '_blank');
-      });
-    } else if (lineData.type === 'cursor') {
-      lineEl.innerHTML = '$ <span class="cursor">_</span>';
-    } else if (lineData.type !== 'blank') {
-      lineEl.textContent = lineData.text;
-    }
-
-    if (lineData.type !== 'blank') {
-      terminalBody.appendChild(lineEl);
-    }
-    terminalBody.scrollTop = terminalBody.scrollHeight;
-
-    currentLine++;
-    setTimeout(typeLine, lineData.delay);
-  }
-
-  setTimeout(typeLine, 500);
-}
-
-// Initialize terminal panel (empty function now, logic moved to browser chrome)
-function initializeTerminalPanel() {
-  // Terminal is now initialized via browser chrome
-}
-
 // ===== Profile Section =====
+// Emoji avatar helpers
+function isEmoji(str) {
+  return typeof str === 'string' && /\p{Extended_Pictographic}/u.test(str);
+}
+
+function emojiToDataUrl(emoji, size = 200, bg = '#2563EB', fg = '#FFFFFF') {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}' viewBox='0 0 ${size} ${size}'>` +
+    `<rect width='100%' height='100%' rx='${size/2}' fill='${bg}'/>` +
+    `<text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-size='${Math.floor(size*0.5)}' font-family='Segoe UI Emoji, Apple Color Emoji, "Noto Color Emoji", sans-serif' fill='${fg}'>${emoji}</text>` +
+    `</svg>`;
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+}
+
 function populateProfile() {
-  // Profile photo - use placeholder
-  const photoUrl = 'https://placehold.co/200x200/2563EB/white?text=OK';
+  // Profile photo - support emoji or image paths
   const profilePhoto = document.getElementById('profilePhoto');
-  if (profilePhoto) profilePhoto.src = photoUrl;
+  const photoVal = portfolioData.hero.photo || '🐼';
+  if (profilePhoto) {
+    try {
+      if (isEmoji(photoVal)) {
+        profilePhoto.src = emojiToDataUrl(photoVal);
+      } else {
+        profilePhoto.src = photoVal;
+      }
+    } catch (e) {
+      // Fallback to raw value in case of any issue
+      profilePhoto.src = photoVal;
+    }
+  }
 
   const profileName = document.getElementById('profileName');
   const profileTitle = document.getElementById('profileTitle');
@@ -346,37 +277,19 @@ function populateProfile() {
   // Social links
   const linkedinLink = document.getElementById('linkedinIcon');
   const githubLink = document.getElementById('githubIcon');
-  const mediumIcon = document.getElementById('mediumIcon');
-  const emailBtn = document.getElementById('emailBtn');
-  const terminalPanel = document.getElementById('terminalPanel');
+  const resumeLink = document.getElementById('resumeIcon');
+  const emailLink = document.getElementById('emailIcon');
 
   if (linkedinLink) linkedinLink.href = portfolioData.social.linkedin || '#';
   if (githubLink) githubLink.href = portfolioData.social.github || '#';
-
-  // Medium icon in sidebar triggers terminal - prevent default and stop propagation
-  if (mediumIcon) {
-    mediumIcon.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (terminalPanel) {
-        terminalPanel.classList.add('active');
-        typeTerminalContent();
-      }
-    });
-  }
+  if (resumeLink) resumeLink.href = portfolioData.social.resume || '#';
+  if (emailLink) emailLink.href = portfolioData.about.email ? `mailto:${portfolioData.about.email}` : '#';
 
   // Show/hide social icons based on data
   if (linkedinLink && !portfolioData.social.linkedin) linkedinLink.style.display = 'none';
   if (githubLink && !portfolioData.social.github) githubLink.style.display = 'none';
-
-  // Email button
-  if (emailBtn) {
-    if (portfolioData.about.email) {
-      emailBtn.href = `mailto:${portfolioData.about.email}`;
-    } else {
-      emailBtn.style.display = 'none';
-    }
-  }
+  if (resumeLink && !portfolioData.social.resume) resumeLink.style.display = 'none';
+  if (emailLink && !portfolioData.about.email) emailLink.style.display = 'none';
 }
 
 // ===== About Section =====
@@ -403,15 +316,18 @@ function populateProjects() {
   const projectImages = [
     'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
     'https://images.unsplash.com/photo-1655720828018-edd2daec9349?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80'
+    'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80',
+    'images/agrogen-farmer.png'
   ];
 
   projectsGrid.innerHTML = portfolioData.projects.map((project, index) => {
-    const imageUrl = projectImages[index] || `https://placehold.co/600x300/e8f0fe/1a56db?text=${encodeURIComponent(project.title)}`;
+    const imageUrl = project.image || projectImages[index] || `https://placehold.co/600x300/e8f0fe/1a56db?text=${encodeURIComponent(project.title)}`;
+
+    const coverClass = project.title && project.title.toLowerCase().includes('agrogen') ? 'project-cover agrogen-cover' : 'project-cover';
 
     return `
       <div class="project-card" data-index="${index}">
-        <img src="${imageUrl}" alt="${project.title}" class="project-cover">
+        <img src="${imageUrl}" alt="${project.title}" class="${coverClass}">
         <div class="project-body">
           <h3 class="project-title">${project.title}</h3>
           <div class="project-tags">
@@ -447,13 +363,35 @@ function populateExperience() {
   }
 
   if (experienceList) {
-    experienceList.innerHTML = portfolioData.experience.map(exp => `
-      <div class="experience-item">
-        <p class="exp-date">${exp.period}</p>
-        <h3 class="exp-role">${exp.role} at ${exp.company}</h3>
-        <p class="exp-description">${exp.description}</p>
-      </div>
-    `).join('');
+    experienceList.innerHTML = portfolioData.experience.map(exp => {
+      // Render description as a list if it's an array or contains bullet markers (•, -, *)
+      let descriptionHtml = '';
+      if (Array.isArray(exp.description)) {
+        descriptionHtml = '<ul class="exp-bullets">' + exp.description.map(d => `<li>${d}</li>`).join('') + '</ul>';
+      } else if (typeof exp.description === 'string') {
+        const lines = exp.description.split('\n').map(l => l.trim()).filter(l => l.length);
+        const allBullets = lines.length > 0 && lines.every(l => /^[\u2022\-\*]/.test(l));
+        if (allBullets) {
+          descriptionHtml = '<ul class="exp-bullets">' + lines.map(l => `<li>${l.replace(/^[\u2022\-\*]\s?/, '')}</li>`).join('') + '</ul>';
+        } else if (lines.length > 1) {
+          // Multiple lines but not explicitly bulleted: render each on its own line
+          descriptionHtml = lines.map(l => `<p class="exp-description">${l}</p>`).join('');
+        } else {
+          descriptionHtml = `<p class="exp-description">${exp.description}</p>`;
+        }
+      }
+
+      return `
+        <div class="experience-item">
+          <div class="exp-header">
+            <h3 class="exp-role">${exp.role}</h3>
+            <span class="exp-date">${exp.period}</span>
+          </div>
+          <p class="exp-company">${exp.company}</p>
+          ${descriptionHtml}
+        </div>
+      `;
+    }).join('');
   }
 }
 
@@ -470,11 +408,49 @@ function populateEducation() {
   if (educationList) {
     educationList.innerHTML = portfolioData.education.map(edu => `
       <div class="education-item">
-        <p class="edu-date">${edu.period}</p>
-        <h3 class="edu-degree">${edu.degree}</h3>
+        <div class="edu-header">
+          <h3 class="edu-degree">${edu.degree}</h3>
+          <span class="edu-date">${edu.period}</span>
+        </div>
         <p class="edu-institution">${edu.institution}</p>
         ${edu.pointer ? `<p class="edu-pointer">${edu.pointer}</p>` : ''}
       </div>
     `).join('');
+  }
+}
+
+// ===== Certifications Section =====
+function populateCertifications() {
+  const certsList = document.getElementById('certificationsList');
+  const certSection = document.querySelector('.certifications-section');
+
+  if (!portfolioData.certifications || portfolioData.certifications.length === 0) {
+    if (certSection) certSection.style.display = 'none';
+    return;
+  }
+
+  if (certsList) {
+    // Render certifications with same typography as education; show provider in brackets next to title and omit timing
+    certsList.innerHTML = portfolioData.certifications.map(c => `
+      <div class="education-item cert-item">
+        <h3 class="edu-degree">${c.title} <span class="cert-issuer">(${c.issuer})</span></h3>
+      </div>
+    `).join('');
+  }
+}
+
+// ===== Achievements Section =====
+function populateAchievements() {
+  const achList = document.getElementById('achievementsList');
+  const achSection = document.querySelector('.achievements-section');
+
+  if (!portfolioData.achievements || portfolioData.achievements.length === 0) {
+    if (achSection) achSection.style.display = 'none';
+    return;
+  }
+
+  if (achList) {
+    // Render achievements without list markers
+    achList.innerHTML = `<ul class="ach-list">` + portfolioData.achievements.map(a => `<li>${a}</li>`).join('') + `</ul>`;
   }
 }
