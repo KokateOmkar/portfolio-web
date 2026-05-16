@@ -73,15 +73,11 @@ const portfolioData = {
       role: "Data Science Intern",
       company: "Kelp Global",
       period: "Dec 2025 - Present",
-      description: `•Integrated LLM APIs (Gemini, OpenAI, Perplexity) with grounding for business use cases and debugged incorrect outputs in
-existing pipelines.
-• Improved retrieval quality (recall & precision) in the core product by applying advanced prompting techniques, directly
-enhancing search relevance.
-• Conducted POC on embedding models for domain-specific business use cases and benchmarked performance across
-candidates.
-• Analyzed open-source LLMs and built multi-modal RAG pipelines handling text, image, and table data for enterprise
-document understanding.
-• Performed data cleaning on the employee reviews dataset using Python libraries, improving data quality.`
+      description: `- Integrated LLM APIs (Gemini, OpenAI, Perplexity) with grounding for business use cases and debugged incorrect outputs in existing pipelines.
+- Improved retrieval quality (recall & precision) in the core product by applying advanced prompting techniques, directly enhancing search relevance.
+- Conducted POC on embedding models for domain-specific business use cases and benchmarked performance across candidates.
+- Analyzed open-source LLMs and built multi-modal RAG pipelines handling text, image, and table data for enterprise document understanding.
+- Performed data cleaning on the employee reviews dataset using Python libraries, improving data quality.`
     },
   ],
 

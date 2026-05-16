@@ -194,6 +194,24 @@ function initializeProjectNavigation() {
     e.stopPropagation();
     navigateProject(1);
   });
+
+  // Exit project selection when clicking outside project navigation
+  document.addEventListener('click', (e) => {
+    const isNavClick = e.target.closest('#backBtn') || e.target.closest('#forwardBtn');
+    const isProjectCard = e.target.closest('.project-card');
+
+    if (currentProjectIndex !== -1 && !isNavClick && !isProjectCard) {
+      clearProjectSelection();
+    }
+  });
+}
+
+function clearProjectSelection() {
+  currentProjectIndex = -1;
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach(card => {
+    card.classList.remove('active', 'inactive');
+  });
 }
 
 function navigateProject(direction) {

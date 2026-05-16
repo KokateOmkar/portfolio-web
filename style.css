@@ -701,20 +701,21 @@ body {
   transition: all 150ms ease;
 }
 
-/* Experience bullets styling */
+/* Experience bullets styling - matches other section container styles */
 .exp-bullets {
   margin: 8px 0 0 0;
-  padding: 14px 14px 14px 2.2rem;
+  padding: 14px 20px;
   background: var(--bg-sidebar);
   border-radius: 8px;
   border: 1px solid var(--border-light);
   color: var(--text-muted);
-  list-style-position: outside;
+  list-style-position: inside;
 }
 .exp-bullets li {
-  margin-bottom: 8px;
-  line-height: 1.25;
-  list-style: disc;
+  margin-bottom: 10px;
+  line-height: 1.5;
+  list-style-type: disc;
+  padding-left: 4px;
 }
 .exp-bullets li:last-child {
   margin-bottom: 0;
