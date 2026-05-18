@@ -5,7 +5,7 @@ const portfolioData = {
   // Hero Section
   hero: {
     name: "Omkar Kokate",
-    title: "Data Sciene and AI/ML",
+    title: "Data Science and AI/ML",
     tagline: "Turning raw data into actionable insights and building intelligent systems",
     cta: "View My Work",
     ctaLink: "#projects",
