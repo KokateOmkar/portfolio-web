@@ -65,7 +65,14 @@ function initializeBrowserChrome() {
     redBtn.addEventListener('click', () => {
       closingOverlay.classList.add('active');
       setTimeout(() => {
-        window.location.reload();
+        window.close();
+        // If window.close() was blocked (direct navigation), show fallback message
+        setTimeout(() => {
+          const msg = document.getElementById('closingMessage');
+          const sub = document.getElementById('closingSubtext');
+          if (msg) msg.textContent = 'You can close this tab now.';
+          if (sub) sub.textContent = 'window.close() is blocked by your browser for directly navigated tabs.';
+        }, 400);
       }, 2800);
     });
   }
